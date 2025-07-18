@@ -1,0 +1,38 @@
+### recuperar todos los items
+GET http://localhost:1234/cart
+### recuperar item por id
+GET http://localhost:1234/cart/1
+### recuperar item por total
+GET http://localhost:1234/carts?total=si
+
+### Crear un item
+POST http://localhost:1234/carts
+Content-Type: application/json
+
+{
+    "products":[
+        {
+            "id": 98,
+          "title": "Rolex Submariner Watch",
+          "price": 13999.99,
+          "quantity": 1,
+          "total": 13999.99,
+          "discountPercentage": 16.35,
+          "discountedTotal": 11710.99,
+          "thumbnail": "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Submariner%20Watch/thumbnail.png"
+        }
+    ],
+    "total": 13999.99,
+    "discountedTotal": 11710.99,
+    "userId": 108,
+    "totalProducts": 1,
+    "totalQuantity": 1
+}
+
+### actualizar un cart
+PATCH http://localhost:1234/carts/1ef99083-4f52-4b8c-9722-2f61cf048792
+Content-Type: application/json
+
+{
+    "totalQuantity": 2
+}

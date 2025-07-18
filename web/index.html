@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: #f5f5f5;
+    }
+    main {
+      display: grid;
+      gap: 1rem;
+    }
+    article {
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      padding: 1rem;
+    }
+    article h2 {
+      margin: 0 0 .5rem;
+      font-size: 1.25rem;
+      color: #333;
+    }
+    article .meta {
+      font-size: .9rem;
+      color: #666;
+      margin-bottom: .5rem;
+    }
+    article ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    article ul li {
+      padding: .25rem 0;
+      border-bottom: 1px solid #eee;
+    }
+    article ul li:last-child {
+      border-bottom: none;
+    }
+    article ul li span {
+      font-weight: bold;
+    }
+  </style>
+  <title>probando api</title>
+  <script type="module">
+    fetch('http://localhost:1234/carts')
+      .then(res => res.json())
+      .then(carts => {
+        const html = carts.map(cart => {
+          return `
+        <article data-id="${cart.id}">
+          <h2>Carrito #${cart.id}</h2>
+          <div class="meta">
+            Usuario: ${cart.userId} · 
+            Productos: ${cart.totalProducts} · 
+            Cantidad total: ${cart.totalQuantity} · 
+            Total: $${cart.total.toLocaleString()}
+            </div>
+            <ul>
+                ${cart.products.map(p => `
+                  <li>
+                    <span>${p.title}</span> 
+                    x${p.quantity} → $${p.total.toLocaleString()}
+                  </li>
+                `).join('')}
+              </ul>
+        </article>
+        `
+        }).join('')
+        document.querySelector('main').innerHTML = html;
+      })
+  </script>
+</head>
+
+<body>
+  <main></main>
+</body>
+</html>
