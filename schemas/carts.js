@@ -1,4 +1,4 @@
-const z = require('zod')
+import z from 'zod'
 
 const productSchema = z.object({
   id: z.number().int(),
@@ -20,12 +20,10 @@ const cartSchema = z.object({
   totalQuantity: z.number().positive()
 })
 
-function validateCart (object) {
+export function validateCart (object) {
   return cartSchema.safeParse(object)
 }
 
-function validatePartialCart (object) {
+export function validatePartialCart (object) {
   return cartSchema.partial().safeParse(object)
 }
-
-module.exports = { validateCart, validatePartialCart }
